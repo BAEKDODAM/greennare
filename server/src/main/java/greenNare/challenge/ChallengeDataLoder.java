@@ -1,4 +1,6 @@
+/*
 package greenNare.challenge;
+
 
 import greenNare.auth.jwt.JwtTokenizer;
 import greenNare.auth.utils.CustomAuthorityUtils;
@@ -33,16 +35,7 @@ public class ChallengeDataLoder implements CommandLineRunner {
         makeChallenge();
     }
     public void makeChallenge(){
-        /*
-        Member member = new Member("emain@email", "name","password12",0);
-        Challenge challenge = new Challenge("title", "content", member);
-        memberRepository.save(member);
-        for(int i=1; i<=50; i++){
-            challengeRepository.save(new Challenge("title "+i,"content "+i, member));
-        }
-        for(int j=1; j<40; j++) {
-            replyRepository.save(new Reply(member,challenge,j+"번 댓글입니다"));
-        }*/
+
         JwtTokenizer jwtTokenizer = new JwtTokenizer();
         CustomAuthorityUtils authorityUtils = new CustomAuthorityUtils();
         SecurityConfiguration securityConfiguration = new SecurityConfiguration(jwtTokenizer, authorityUtils);
@@ -62,5 +55,5 @@ public class ChallengeDataLoder implements CommandLineRunner {
             replyRepository.save(new Reply(member, challenge, j + "번 댓글입니다"));
         }
     }
-
 }
+ */
