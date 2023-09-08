@@ -7,7 +7,7 @@ spring:
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update #create-drop
+      ddl-auto: create #update #create-drop
 
     open-in-view: false
 
