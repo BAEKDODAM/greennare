@@ -21,6 +21,7 @@ public class GetProductWithImageDto {
     private int point;
     private String storeLink;
     List<String> imageLinks;
+    private boolean inMyCart;
     //String imageLink;
 
 

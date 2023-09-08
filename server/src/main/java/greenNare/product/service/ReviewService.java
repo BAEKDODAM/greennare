@@ -1,5 +1,7 @@
 package greenNare.product.service;
 
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
 import greenNare.auth.jwt.JwtTokenizer;
 import greenNare.exception.BusinessLogicException;
 import greenNare.exception.ExceptionCode;
@@ -11,6 +13,7 @@ import greenNare.product.entity.Review;
 import greenNare.product.repository.ImageRepository;
 import greenNare.product.repository.ReviewRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -43,18 +46,25 @@ public class ReviewService {
 
     public static final String SEPERATOR  = "_";
 
+    private final Storage storage;
+
+    @Value("${spring.cloud.gcp.storage.bucket}")
+    private String bucketName;
+
 
     public ReviewService(ReviewRepository reviewRepository,
                          ProductService productService,
                          MemberRepository memberRepository,
                          ImageRepository imageRepository,
-                         MemberService memberService) {
+                         MemberService memberService,
+                         Storage storage) {
 
         this.reviewRepository = reviewRepository;
         this.productService = productService;
         this.memberRepository = memberRepository;
         this.imageRepository = imageRepository;
         this.memberService = memberService;
+        this.storage = storage;
     }
 
 
@@ -219,10 +229,20 @@ public class ReviewService {
         UUID uuid = UUID.randomUUID();
         String imageName = uuid + SEPERATOR + image.getOriginalFilename();
 
-        File imagefile = new File(IMAGE_SAVE_URL, imageName);
-        image.transferTo(imagefile);
+        //Google Cloud Storage에 저장
+        BlobInfo blobInfo = storage.create(
+                BlobInfo.newBuilder(bucketName, imageName)
+                        .setContentType("image/jpeg")
+                        .build(),
+                image.getInputStream()
 
-        return "/images/" + imageName;
+        );
+
+        //파일로 저장
+//        File imagefile = new File(IMAGE_SAVE_URL, imageName);
+//        image.transferTo(imagefile);
+
+        return bucketName+"/"+imageName;
 
     }
 

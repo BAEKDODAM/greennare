@@ -8,17 +8,22 @@ import greenNare.product.entity.Image;
 import greenNare.product.entity.Product;
 import greenNare.product.repository.ImageRepository;
 import greenNare.product.repository.ProductRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ProductService {
     private ProductRepository productRepository;
     private ImageRepository imageRepository;
+
+
 
     public ProductService (ProductRepository productRepository,
                            ImageRepository imageRepository) {
@@ -60,7 +65,8 @@ public class ProductService {
                             product.getCategory(),
                             product.getPoint(),
                             product.getStoreLink(),
-                            imageLinks
+                            imageLinks,
+                            false
 //                            imageLink
                     );
 
@@ -71,6 +77,42 @@ public class ProductService {
         return getProductWithImageDtos;
 
     }
+
+
+    public List<GetProductWithImageDto> getProductsWithImage(Page<Product> products, List<Integer> cartProductId) {
+        //List<Product> productList = products.getContent();
+        List<GetProductWithImageDto> getProductWithImageDtos = products.getContent().stream()
+                .map(product -> {
+                    List<Image> images = imageRepository.findImagesUriByProductProductId(product.getProductId());
+                    List<String> imageLinks = images.stream()
+                            .map(image -> image.getImageUri())
+                            .collect(Collectors.toList());
+//                    Image image = imageRepository.findImageUriByProductProductId(product.getProductId());
+//                    String imageLink = image.getImageUri();
+                    //카트에있는 상품번호면 boolean existInMyCart == true
+                    log.info("finding cartproducrt");
+
+                    GetProductWithImageDto resultDto = new GetProductWithImageDto(
+                            product.getProductId(),
+                            product.getProductName(),
+                            product.getDetail(),
+                            product.getPrice(),
+                            product.getCategory(),
+                            product.getPoint(),
+                            product.getStoreLink(),
+                            imageLinks,
+                            existInMyCart(cartProductId, product.getProductId())
+//                            imageLink
+                    );
+
+                    return resultDto;
+                })
+                .collect(Collectors.toList());
+
+        return getProductWithImageDtos;
+
+    }
+
 
     public Product getProduct(int productId) {
         Product productDetails = productRepository.findById(productId)
@@ -93,7 +135,33 @@ public class ProductService {
                 productDetails.getCategory(),
                 productDetails.getPoint(),
                 productDetails.getStoreLink(),
-                imageLinks
+                imageLinks,
+                false
+
+        );
+        return resultDto;
+    }
+
+    public GetProductWithImageDto getProductWithImage(int productId, List<Integer> cartProductId) {
+        Product productDetails = getProduct(productId); //productRepository.findById(productId);
+        List<Image> images = imageRepository.findImagesUriByProductProductId(productDetails.getProductId());
+        List<String> imageLinks = images.stream()
+                .map(image -> image.getImageUri())
+                .collect(Collectors.toList());
+//        String imageLink = imageRepository.findImageUriByProductProductId(productId).getImageUri();
+
+        //카트에있는 상품번호면 boolean existInMyCart == true
+        GetProductWithImageDto resultDto = new GetProductWithImageDto(
+                productDetails.getProductId(),
+                productDetails.getProductName(),
+                productDetails.getDetail(),
+                productDetails.getPrice(),
+                productDetails.getCategory(),
+                productDetails.getPoint(),
+                productDetails.getStoreLink(),
+                imageLinks,
+                existInMyCart(cartProductId, productId)
+
 
         );
         return resultDto;
@@ -108,5 +176,27 @@ public class ProductService {
         //List<Product> findProducts = productRepository.findByPrice(productName);
 
         return findProducts;
+    }
+
+    public boolean existInMyCart(List<Integer> cartProductsId, int productId) {
+        log.info(cartProductsId.toString() + " " + productId);
+
+        for(Integer cartProductId : cartProductsId) {
+            log.info("cartProductId: " + cartProductId);
+            if (cartProductId == productId){
+                log.info(productId + "exist in the cart_return true");
+                return true;
+            }
+        }
+
+//        for(int i=0; i<cartProductId.size(); i++) {
+//            log.info("cartProductId: " + cartProductId.get(i));
+//            if(cartProductId.get(i) == productId){
+//                log.info(productId + "exist in the cart_return true");
+//                return true;
+//            }
+//        }
+
+        return false;
     }
 }

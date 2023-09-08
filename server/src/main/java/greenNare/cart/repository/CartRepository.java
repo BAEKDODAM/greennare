@@ -19,6 +19,8 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 
     Member findMemberByMemberMemberId(int memberId);
 
+    List<Cart> findByMemberMemberId(int memberId);
+
     Page<Cart> findByMemberMemberId(int memberId, PageRequest pageable);
 
 }

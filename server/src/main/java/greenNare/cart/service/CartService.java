@@ -72,6 +72,17 @@ public class CartService {
         return myCartProductsId;
     }
 
+    public List<Integer> getLikeProductId(int memberId){
+        List<Integer> likeProductId = cartRepository.findByMemberMemberId(memberId).stream()
+                .map(cartProduct -> {
+                    int productId = cartProduct.getProduct().getProductId();
+                    return productId;
+                })
+                .collect(Collectors.toList());
+
+        return likeProductId;
+    }
+
     public List<GetProductWithImageDto> getCartProuctsWithImage(Page<Cart> cart) {
         List<Product> myCartProducts = cart.getContent().stream()
                 .map(cartProdcut -> {
@@ -98,7 +109,8 @@ public class CartService {
                             product.getCategory(),
                             product.getPoint(),
                             product.getStoreLink(),
-                            imageLinks
+                            imageLinks,
+                            false
 //                            imageLink
                     );
 
