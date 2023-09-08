@@ -1,4 +1,4 @@
-package greenNare.product;
+/*package greenNare.product;
 
 import greenNare.member.entity.Member;
 import greenNare.member.repository.MemberRepository;
@@ -132,3 +132,5 @@ public class DataLoder implements CommandLineRunner {
     }
 
 }
+
+ */
