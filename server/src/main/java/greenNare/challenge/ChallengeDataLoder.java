@@ -1,4 +1,4 @@
-/*
+
 package greenNare.challenge;
 
 
@@ -43,7 +43,7 @@ public class ChallengeDataLoder implements CommandLineRunner {
 
         Member member = new Member("guest@email.com", "name", password, 10000);
         memberRepository.save(member); // Member 엔티티를 먼저 저장
-
+/*
         Challenge challenge = new Challenge("title", "content", member);
         challengeRepository.save(challenge); // Challenge 엔티티 저장
 
@@ -54,6 +54,7 @@ public class ChallengeDataLoder implements CommandLineRunner {
         for (int j = 1; j < 40; j++) {
             replyRepository.save(new Reply(member, challenge, j + "번 댓글입니다"));
         }
+
+ */
     }
 }
- */
