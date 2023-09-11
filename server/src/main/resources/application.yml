@@ -7,7 +7,7 @@ spring:
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create #update #create-drop
+      ddl-auto: update #create #update #create-drop
 
     open-in-view: false
 
@@ -29,11 +29,11 @@ spring:
       host: localhost
       port: 6379
 
-  #datasource:
-  #  url: jdbc:mysql://34.64.148.174:3306/greennare?serverTimezone=Asia/Seoul
-  #  username: cloudrun
-  #  password: cloudrun
-  #  driver-class-name: com.mysql.cj.jdbc.Driver
+  datasource:
+    url: jdbc:mysql://34.64.148.174:3306/greennare?serverTimezone=Asia/Seoul
+    username: cloudrun
+    password: cloudrun
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   sql:
     init:
@@ -78,7 +78,7 @@ mail:
 # metrics:
 #    tags:
 #      application: ${spring.application.name}
-CLOUD_SQL_INSTANCE_CONNECTION_NAME: greennare:asia-northeast3:greennare-db
-DATABASE_NAME: greennare
-USERNAME: cloudrun
-PASSWORD: cloudrun
+#CLOUD_SQL_INSTANCE_CONNECTION_NAME: greennare:asia-northeast3:greennare-db
+#DATABASE_NAME: greennare
+#USERNAME: cloudrun
+#PASSWORD: cloudrun
