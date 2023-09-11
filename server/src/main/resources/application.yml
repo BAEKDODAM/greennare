@@ -29,17 +29,17 @@ spring:
       host: localhost
       port: 6379
 
-  datasource:
-    url: jdbc:mysql://34.64.148.174:3306/greennare?serverTimezone=Asia/Seoul
-    username: cloudrun
-    password: cloudrun
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
 #  datasource:
-#    url: jdbc:mysql://google/${DB_NAME}?cloudSqlInstance=${INSTANCE_CONNECTION_NAME}&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false
-#    username: ${DB_USER}
-#    password: ${DB_PASS}
+#    url: jdbc:mysql://34.64.148.174:3306/greennare?serverTimezone=Asia/Seoul
+#    username: cloudrun
+#    password: cloudrun
 #    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  datasource:
+    url: jdbc:mysql://google/${DB_NAME}?cloudSqlInstance=${INSTANCE_CONNECTION_NAME}&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
     init:
       #schema-locations: classpath*:db/h2/schema.sql
