@@ -35,12 +35,17 @@ spring:
   #  password: cloudrun
   #  driver-class-name: com.mysql.cj.jdbc.Driver
 
-  datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
+  #datasource:
+  #  url: ${SPRING_DATASOURCE_URL}
+  #  username: ${DB_USER}
+  #  password: ${DB_PASS}
+  #  driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
 
+  datasource:
+    url: jdbc:mysql://google/${DB_NAME}?cloudSqlInstance=${INSTANCE_CONNECTION_NAME}&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
     init:
       #schema-locations: classpath*:db/h2/schema.sql
@@ -67,8 +72,8 @@ jwt:
 mail:
   address:
     admin: admin@gmail.com
-server:
-  port: 8080
+#server:
+#  port: 8080
 #management:
 #  endpoint:
 #    metrics:
