@@ -41,9 +41,9 @@ spring:
   #  password: ${DB_PASS}
   #  driver-class-name: com.mysql.cj.jdbc.Driver
 
-  datasource:
-    url: jdbc:mysql:///greennare?cloudSqlInstance=greennare:asia-northeast3:greennare-db&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=cloudrun&password=cloudrun
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  #datasource:
+  #  url: jdbc:mysql:///greennare?cloudSqlInstance=greennare:asia-northeast3:greennare-db&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=cloudrun&password=cloudrun
+  #  driver-class-name: com.mysql.cj.jdbc.Driver
 
   sql:
     init:
