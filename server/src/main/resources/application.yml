@@ -36,8 +36,8 @@ spring:
       port: 6379
 
   datasource:
-    #url: jdbc:mysql:///greennare?cloudSqlInstance=greennare:asia-northeast3:greennare-db&socketFactory=com.google.cloud.sql.mysql.SocketFactory
-    url: jdbc:mysql://34.64.148.174:3306/greennare?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://google/greennare?cloudSqlInstance=greennare:asia-northeast3:greennare-db&socketFactory=com.google.cloud.sql.mysql.SocketFactory
+    #url: jdbc:mysql://34.64.148.174:3306/greennare?serverTimezone=Asia/Seoul
     username: cloudrun
     password: cloudrun
     driver-class-name: com.mysql.cj.jdbc.Driver

@@ -1,3 +1,4 @@
+EXPOSE 8080
 # Use the official OpenJDK base image
 FROM openjdk:11-jdk
 
