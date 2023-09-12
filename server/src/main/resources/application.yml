@@ -1,6 +1,6 @@
 externalImagePath: home/ssm-user/seb44_main_026/images/
 spring:
-  prifiles:
+  profiles:
     active: gcp,mysql
   #mvc:
   #  static-path-pattern: /images/**
@@ -26,9 +26,9 @@ spring:
         project-id: greennare
         bucket: greennare-bucket-1
       sql:
-        instance-conncetion-name: greennare:asia-northeast3:greennare-db
+      #  instance-conncetion-name: greennare:asia-northeast3:greennare-db
         database-name: greennare
-
+        instance-connection-name: greennare:asia-northeast3:greennare-db
 
   redis:
     cache:
@@ -36,8 +36,8 @@ spring:
       port: 6379
 
   datasource:
-    url: jdbc:mysql:///greennare?cloudSqlInstance=greennare:asia-northeast3:greennare-db&socketFactory=com.google.cloud.sql.mysql.SocketFactory
-  #  url: jdbc:mysql://34.64.148.174:3306/greennare?serverTimezone=Asia/Seoul
+    #url: jdbc:mysql:///greennare?cloudSqlInstance=greennare:asia-northeast3:greennare-db&socketFactory=com.google.cloud.sql.mysql.SocketFactory
+    url: jdbc:mysql://34.64.148.174:3306/greennare?serverTimezone=Asia/Seoul
     username: cloudrun
     password: cloudrun
     driver-class-name: com.mysql.cj.jdbc.Driver
