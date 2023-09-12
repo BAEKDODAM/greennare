@@ -24,10 +24,13 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Integer> {
             "JOIN Member m" +
             "ON c.memberId = m.memberId;", nativeQuery = true)
      */
+    /*
     @Query(value = "SELECT * "+
             "FROM Challenge ;"
             , nativeQuery = true)
     Page<Object[]> getAllChallengeWithUsername(Pageable pageable);
+
+     */
 /*
     @Query(value = "SELECT c.title, c.content, c.challengeId, c.createdAt, m.name, m.point " +
             "FROM challenge c " +
