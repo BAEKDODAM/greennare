@@ -15,14 +15,14 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Entity
-public class Product extends Auditable {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
 
     @Column(nullable = false, unique = true, name = "PRODUCT_NAME")
     private String productName;
-    @Column(nullable = false)
+    @Column
     private String detail;
     @Column(nullable = false)
     private int price;

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Image extends Auditable {
+public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int imageId;

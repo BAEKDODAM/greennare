@@ -7,13 +7,13 @@ spring:
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update #create #update #create-drop
+      ddl-auto: update
 
     open-in-view: false
 
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        #dialect: org.hibernate.dialect.MySQL5Dialect
         format_sql: true
         show_sql: true
   cloud:
@@ -23,43 +23,29 @@ spring:
           location: classpath:greennare-9e6b24e727ac.json
         project-id: greennare
         bucket: greennare-bucket-1
+      sql:
+        instance-conncetion-name: greennare:asia-northeast3:greennare-db
+        database-name: greennare
+
 
   redis:
     cache:
       host: localhost
       port: 6379
 
-#  datasource:
-#    url: jdbc:mysql://34.64.148.174:3306/greennare?serverTimezone=Asia/Seoul
-#    username: cloudrun
-#    password: cloudrun
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  #datasource:
-  #  url: jdbc:mysql://google/${DB_NAME}?cloudSqlInstance=${INSTANCE_CONNECTION_NAME}&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false
-  #  username: ${DB_USER}
-  #  password: ${DB_PASS}
-  #  driver-class-name: com.mysql.cj.jdbc.Driver
-
-  #datasource:
-  #  url: jdbc:mysql:///greennare?cloudSqlInstance=greennare:asia-northeast3:greennare-db&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=cloudrun&password=cloudrun
-  #  driver-class-name: com.mysql.cj.jdbc.Driver
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///greennare
+    url: jdbc:mysql://34.64.148.174:3306/greennare?serverTimezone=Asia/Seoul
     username: cloudrun
     password: cloudrun
-    hikari:
-      data-source-properties:
-        socketFactory: com.google.cloud.sql.mysql.SocketFactory
-        cloudSqlInstance: greennare:asia-northeast3:greennare-db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #initialization-mode: always
 
   sql:
     init:
-      #schema-locations: classpath*:db/h2/schema.sql
-      #data-locations: classpath*:db/h2/data.sql
-#  application:
-#    name: monitoring
+    #schema-locations: classpath*:db/h2/schema.sql
+    #data-locations: classpath*:db/h2/data.sql
+  #  application:
+  #    name: monitoring
   servlet:
     multipart:
       max-file-size: 10MB
@@ -80,8 +66,8 @@ jwt:
 mail:
   address:
     admin: admin@gmail.com
-#server:
-#  port: 8080
+server:
+  port: 8080
 #management:
 #  endpoint:
 #    metrics:
@@ -97,7 +83,3 @@ mail:
 # metrics:
 #    tags:
 #      application: ${spring.application.name}
-#CLOUD_SQL_INSTANCE_CONNECTION_NAME: greennare:asia-northeast3:greennare-db
-#DATABASE_NAME: greennare
-#USERNAME: cloudrun
-#PASSWORD: cloudrun

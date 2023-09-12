@@ -29,8 +29,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'mysql:mysql-connector-java:8.0.31'
-	implementation 'com.google.cloud.sql:mysql-socket-factory-connector-j-8:1.13.1'
+	implementation 'mysql:mysql-connector-java:8.0.33'
+
 
 	implementation 'com.google.code.gson:gson:2.9.0'
 
@@ -56,10 +56,6 @@ dependencies {
 
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
-
-	implementation 'com.zaxxer:HikariCP:5.0.0'
-
-
 }
 
 tasks.named('test') {
