@@ -124,9 +124,10 @@
 
 
 ### 📍ERD
-- 테이블 명세서
-[greennare (1)](img/greennare%20(1)%2007440236f2b0433fada35c40253b025e.csv)
-![ERD](img/ok.drawio.png)
+- ERD
+    ![ERD](img/ok.drawio.png)
+- [테이블 명세서](img/greennare%20(1)%2007440236f2b0433fada35c40253b025e.csv)
+
 
 ### 📍API 명세서
 [API 명세서](https://greennare-cloud-run-hi2lhamh6q-du.a.run.app/swagger-ui/index.html#/)
