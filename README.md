@@ -81,9 +81,9 @@
 
 ### 📍화면 정의서
     
-    ![Untitled](%E1%84%80%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%82%E1%85%A1%E1%84%85%E1%85%A2%204d29a518fe584445b253f4b63f8f04b1/Untitled%201.png)
+    ![Untitled](img/Untitled%201.png)
     
-    ![Untitled](%E1%84%80%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%82%E1%85%A1%E1%84%85%E1%85%A2%204d29a518fe584445b253f4b63f8f04b1/Untitled%202.png)
+    ![Untitled](img/Untitled%202.png)
     
     ![Untitled](%E1%84%80%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%82%E1%85%A1%E1%84%85%E1%85%A2%204d29a518fe584445b253f4b63f8f04b1/Untitled%203.png)
     
