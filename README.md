@@ -81,24 +81,18 @@
 
 ### 📍화면 정의서
     
-    ![Untitled](img/Untitled%201.png)
-    
-    ![Untitled](img/Untitled%202.png)
-    
-    ![Untitled](%E1%84%80%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%82%E1%85%A1%E1%84%85%E1%85%A2%204d29a518fe584445b253f4b63f8f04b1/Untitled%203.png)
-    
-    ![Untitled](%E1%84%80%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%82%E1%85%A1%E1%84%85%E1%85%A2%204d29a518fe584445b253f4b63f8f04b1/Untitled%204.png)
-    
-    ![Untitled](%E1%84%80%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%82%E1%85%A1%E1%84%85%E1%85%A2%204d29a518fe584445b253f4b63f8f04b1/Untitled%205.png)
-    
-    ![Untitled](%E1%84%80%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%82%E1%85%A1%E1%84%85%E1%85%A2%204d29a518fe584445b253f4b63f8f04b1/Untitled%206.png)
-    
-    ![Untitled](%E1%84%80%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%82%E1%85%A1%E1%84%85%E1%85%A2%204d29a518fe584445b253f4b63f8f04b1/Untitled%207.png)
+<img src="img/Untitled%201.png" >
+<img src ="img/Untitled%202.png" >
+<img = "img/Untitled%203.png">
+<img src = "img/Untitled%204.png">
+<img src="img/Untitled%205.png">
+<img src="img/Untitled%206.png">
+<img src="img/Untitled%207.png">
 
 ### 📍개발자 테스트 체크리스트
     
-    | no | 카테고리 | 설명 | 결과 | 비고 |
-    | --- | --- | --- | --- | --- |
+| no | 카테고리 | 설명 | 결과 | 비고 |
+| --- | --- | --- | --- | --- |
     | 1 | 회원가입 | 회원가입을 할 수 있다. | O |  |
     | 2 | 회원가입 | 회원가입 시에 올바른 데이터를 입력받았는가 | O |  |
     | 3 | 로그인 | 등록된 회원 정보와 일치하는 정보로 로그인에 성공한다 | O |  |
@@ -132,17 +126,17 @@
 ### 📍ERD
 - 테이블 명세서
     
-    [greennare (1)](%E1%84%80%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%82%E1%85%A1%E1%84%85%E1%85%A2%204d29a518fe584445b253f4b63f8f04b1/greennare%20(1)%2007440236f2b0433fada35c40253b025e.csv)
+    [greennare (1)](img/greennare%20(1)%2007440236f2b0433fada35c40253b025e.csv)
     
 
-![ok.drawio.png](%E1%84%80%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%82%E1%85%A1%E1%84%85%E1%85%A2%204d29a518fe584445b253f4b63f8f04b1/ok.drawio.png)
+![ok.drawio.png](img/ok.drawio.png)
 
 ### 📍API 명세서
 [https://greennare-cloud-run-hi2lhamh6q-du.a.run.app/swagger-ui/index.html#/](https://greennare-cloud-run-hi2lhamh6q-du.a.run.app/swagger-ui/index.html#/)
 
 ### 배포
 
-![제목 없는 다이어그램.drawio.png](%E1%84%80%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%82%E1%85%A1%E1%84%85%E1%85%A2%204d29a518fe584445b253f4b63f8f04b1/%25EC%25A0%259C%25EB%25AA%25A9_%25EC%2597%2586%25EB%258A%2594_%25EB%258B%25A4%25EC%259D%25B4%25EC%2596%25B4%25EA%25B7%25B8%25EB%259E%25A8.drawio.png)
+![제목 없는 다이어그램.drawio.png](img/%25EC%25A0%259C%25EB%25AA%25A9_%25EC%2597%2586%25EB%258A%2594_%25EB%258B%25A4%25EC%259D%25B4%25EC%2596%25B4%25EA%25B7%25B8%25EB%259E%25A8.drawio.png)
 
 ###  📺 발표 영상
-
+[youtube](https://www.youtube.com/watch?v=4bbhDQS89nQ)
