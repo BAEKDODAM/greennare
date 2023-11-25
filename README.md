@@ -80,14 +80,18 @@
 [사용자 요구사항 정의서](img/%EC%A0%9C%EB%AA%A9%20%EC%97%86%EC%9D%8C%20634b0da392874d0880917369494d4ba3.csv)
 
 ### 📍화면 정의서
-    
-<img src="img/Untitled%201.png" >
-<img src ="img/Untitled%202.png" >
-<img = "img/Untitled%203.png">
-<img src = "img/Untitled%204.png">
-<img src="img/Untitled%205.png">
-<img src="img/Untitled%206.png">
-<img src="img/Untitled%207.png">
+<details>
+    <summary>화면정의서</summary>
+    <br>
+    <img src="img/Untitled%201.png" >
+    <img src ="img/Untitled%202.png" >
+    <img = "img/Untitled%203.png">
+    <img src = "img/Untitled%204.png">
+    <img src="img/Untitled%205.png">
+    <img src="img/Untitled%206.png">
+    <img src="img/Untitled%207.png">
+</details>
+
 
 ### 📍개발자 테스트 체크리스트
     
