@@ -33,7 +33,9 @@ public class Challenge extends Auditable {
     private String content;
 
     @Column
-    private String image;
+    private String imageUrl;
+
+    private String imageName;
 
     @OneToMany(mappedBy = "challenge")
     private List<Reply> reply;

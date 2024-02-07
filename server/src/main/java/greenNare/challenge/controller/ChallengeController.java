@@ -67,7 +67,7 @@ public class ChallengeController {
     public ResponseEntity getMyChallenge(@RequestHeader(value = "Authorization") String token,
                                          Pageable pageable){
         Page<Challenge> challengePage = challengeService.getMyChallengePage(pageable, token);
-        List<Challenge> challengeList = challengeService.getMyChallenges(challengePage);
+        List<Challenge> challengeList = challengePage.getContent();
         return new ResponseEntity<>(new MultiResponseDto<>(challengeList, challengePage), HttpStatus.OK);
     }
 

@@ -13,7 +13,6 @@ import greenNare.exception.BusinessLogicException;
 import greenNare.exception.ExceptionCode;
 import greenNare.member.entity.Member;
 import greenNare.member.service.MemberService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -49,7 +48,8 @@ public class ChallengeService {
 
     public static final String IMAGE_SAVE_URL = "/home/ssm-user/seb44_main_026/images/";
     public static final String IMAGE_DELETE_URL = "/home/ssm-user/seb44_main_026";
-    public static final String SEPERATOR  = "_";
+    public static final String SEPERATOR  = "/";
+    public static final int DELETE_POINT  = 500;
 
     public ChallengeService(ChallengeRepository challengeRepository, MemberService memberService, SecurityConfiguration securityConfiguration, JwtTokenizer jwtTokenizer, Storage storage) {
         this.challengeRepository = challengeRepository;
@@ -63,142 +63,112 @@ public class ChallengeService {
         if(token.isBlank()) {
             throw new BusinessLogicException(ExceptionCode.INVALID_TOKEN);
         }
-        int memberId = jwtTokenizer.getMemberId(token);
         Member member = findMemberByToken(token);
+        challenge.setMember(member);
 
-        challenge.setMember(member); // 멤버 넣어야함
+        Challenge imageSaveChallenge = saveChallengeImage(challenge, file);
 
-        Challenge imageSaveChallenge = saveFile(challenge, file);
-
-        memberService.deletePoint(memberId, 500);
+        memberService.deletePoint(member.getMemberId(), DELETE_POINT);
 
         Challenge saveChallenge = challengeRepository.save(imageSaveChallenge);
 
         ChallengeDto.Response response = ChallengeDto.Response.from(saveChallenge);
-        response.setName(member.getName());
-        response.setPoint(member.getPoint());
         return response;
     }
-    public Challenge saveFile(Challenge challenge, MultipartFile file) throws IOException{
+
+    public Challenge saveChallengeImage(Challenge challenge, MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             log.info("patch 요청에 image 없음");
             return challenge;
         }
-        UUID uuid = UUID.randomUUID();
-        String fileName = uuid.toString();
+        String fileName = createFileName();
         String type = file.getContentType();
-        BlobInfo blobInfo = storage.create(
+        saveFileToGcpStorage(fileName, type, file);
+        String ImageSavedBucketUrl = createImageSavedBucketUrl(fileName);
+        challenge.setImageUrl(ImageSavedBucketUrl);
+        return challengeRepository.save(challenge);
+    }
+    public String createFileName(){
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString();
+    }
+    public String createImageSavedBucketUrl(String fileName){
+        return bucketName+SEPERATOR+fileName;
+    }
+
+    public void saveFileToGcpStorage(String fileName, String type, MultipartFile file) throws IOException {
+        storage.create(
                 BlobInfo.newBuilder(bucketName, fileName)
-                        .setContentType("image/jpeg")
+                        .setContentType(type)
                         .build(),
                 file.getInputStream()
         );
-        String name = bucketName+"/"+fileName;
-        challenge.setImage(name);
-        return challengeRepository.save(challenge);
-
-    }
-
-    public Challenge saveImage(Challenge challenge, MultipartFile file) throws IOException {
-        if (file.isEmpty()) {
-            log.info("patch 요청에 image 없음");
-            return challenge;
-        }
-        log.info("patch 요청에 image 있음");
-        String projectPath = IMAGE_SAVE_URL;
-
-        UUID uuid = UUID.randomUUID();
-        String fileName = uuid + SEPERATOR + file.getOriginalFilename(); // 숨기기. 파일 객체가 이메서드를 갖고 있도록
-
-        File saveFile = new File(projectPath, fileName);
-        file.transferTo(saveFile);
-
-        String image = "/images/" + fileName;
-
-        challenge.setImage(image);
-        return challengeRepository.save(challenge);
     }
 
     public List<ChallengeDto.PageResponse> getChallenges(Pageable pageable) {
-        log.info("@@@@ getChallenges 호출");
+        log.info("getChallenges start");
 
         Page<Challenge> challengePage = challengeRepository.findAll(pageable);
 
-        List<ChallengeDto.PageResponse> challenges = challengePage.stream()
+        List<ChallengeDto.PageResponse> challengeDtoPageResponeList = challengePageToChallengeDtoPageResponseList(challengePage);
+        return challengeDtoPageResponeList;
+    }
+    public List<ChallengeDto.PageResponse> challengePageToChallengeDtoPageResponseList(Page<Challenge> challengePage){
+        return challengePage.stream()
                 .map(challenge -> {
-                    ChallengeDto.PageResponse response =  ChallengeDto.PageResponse.from(challenge);
-                    response.setCountReply(getReplyCountForChallenge(challenge.getChallengeId())); //(countReply(challenge.getChallengeId()));
-                    Member member = challenge.getMember();
-                    response.setName(member.getName());
-                    response.setPoint(member.getPoint());
-                    return response;
-                }
-
+                            int countReply = getReplyCountForChallenge(challenge.getChallengeId());
+                            ChallengeDto.PageResponse response =  ChallengeDto.PageResponse.from(challenge, countReply);
+                            return response;
+                        }
                 ).collect(Collectors.toList());
-        return challenges;
     }
     public Page<Challenge> getChallengesPage(Pageable pageable) {
         int pageNumber = pageable.getPageNumber();
         int pageSize = pageable.getPageSize();
 
-        log.info("@@@@ getChallengePage 호출됨");
         Page<Challenge> challengePage = challengeRepository.findAll(PageRequest.of(pageNumber, pageSize));
-        log.info("@@@ challengePage content : {}", challengePage.getNumber());
         return challengePage;
     }
 
     public ChallengeDto.Response getChallenge(int challengeId) {
-        log.info(String.valueOf("#### get challenge 시작 / challengeId :"+  String.valueOf(challengeId)));
+        log.info(String.valueOf("#### get challenge 시작 / challengeId {}"+  String.valueOf(challengeId)));
 
         Challenge challenge = findVerifideChallenge(challengeId);
         log.info("### challenge content : {}", challenge.getContent());
         ChallengeDto.Response response = ChallengeDto.Response.from(challenge);
         response.setCountReply(getReplyCountForChallenge(challengeId)); //(countReply(challengeId));
 
-        log.info("response : {}", response.getName());
-
-        return addWriterInfo(challenge.getMember(), response);
+        return response;
 
     }
     public Page<Challenge> getMyChallengePage(Pageable pageable, String token){
         int memberId = jwtTokenizer.getMemberId(token);
         Page<Challenge> challengePage = challengeRepository.findByMemberMemberId(memberId, pageable);
-
-        List<Challenge> list = challengeRepository.findByMemberMemberId(memberId);
-        log.info("findByMemberId List로 추출했을 때 : {}", list.size());
         return challengePage;
     }
 
-    public List<Challenge> getMyChallenges (Page<Challenge> challengePage){
-        List<Challenge>  challengeList = challengePage.stream().collect(Collectors.toList());
-        return challengeList;
-    }
-
-    public ChallengeDto.Response updateChallenge(Challenge challenge, int challengeId, MultipartFile image, String token) throws IOException {
+    public ChallengeDto.Response updateChallenge(Challenge postChallenge, int challengeId, MultipartFile image, String token) throws IOException {
         Challenge findChallenge = findVerifideChallenge(challengeId);
 
         validateWriter(findChallenge.getMember(), token);
 
-        //File file = new File(IMAGE_DELETE_URL+findChallenge.getImage());
-        //deleteImage(file);
-
-        //findChallenge.setImage(null);
-
-        log.info("update image delete");
-
-        Optional.ofNullable(challenge.getTitle())
+        Optional.ofNullable(postChallenge.getTitle())
                 .ifPresent(title -> findChallenge.setTitle(title));
-        Optional.ofNullable(challenge.getContent())
+        Optional.ofNullable(postChallenge.getContent())
                 .ifPresent(content -> findChallenge.setContent(content));
 
-        Challenge imageSaveChallenge = saveFile(findChallenge, image);
+        deleteImg(findChallenge);
+        Challenge imageSaveChallenge = saveChallengeImage(findChallenge, image);
 
         challengeRepository.save(imageSaveChallenge);
         ChallengeDto.Response response = ChallengeDto.Response.from(imageSaveChallenge);
-        return addWriterInfo(imageSaveChallenge.getMember(), response);
+        return response;
+    }
+    public void deleteImg(Challenge challenge){
+        challenge.getImageName();
     }
     public void changeImg(Challenge challenge, MultipartFile file) {
-        String imageName = challenge.getImage();
+        String imageName = challenge.getImageUrl();
         Storage storage = StorageOptions.newBuilder().setProjectId("greennare").build().getService();
         Blob blob = storage.get(bucketName, imageName);
         if (blob == null) {
@@ -209,7 +179,7 @@ public class ChallengeService {
                 Storage.BlobSourceOption.generationMatch(blob.getGeneration());
 
         storage.delete(bucketName,imageName, precondition);
-        challenge.setImage(null);
+        challenge.setImageUrl(null);
     }
 
     public void deleteChallenge(int challengeId, String token){
@@ -221,16 +191,10 @@ public class ChallengeService {
         Challenge findChallenge = findVerifideChallenge(challengeId);
         validateWriter(findChallenge.getMember(),token);
 
-        File file = new File(IMAGE_DELETE_URL+findChallenge.getImage());
+        File file = new File(IMAGE_DELETE_URL+findChallenge.getImageUrl());
         deleteImage(file);
         log.info("##### find challenge 통과");
         challengeRepository.delete(findChallenge);
-    }
-
-    public ChallengeDto.Response addWriterInfo(Member member, ChallengeDto.Response response) {
-        response.setName(member.getName());
-        response.setPoint(member.getPoint());
-        return response;
     }
 
     public Challenge findVerifideChallenge(int challengeId) {
