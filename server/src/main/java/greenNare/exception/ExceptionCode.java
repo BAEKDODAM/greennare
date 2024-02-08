@@ -18,7 +18,8 @@ public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "회원을 찾을 수 없습니다."),
     POINT_LAKE(403, "포인트가 부족합니다"),
     ALREADY_JOINED(403,"이미 참여한 챌린지 입니다."),
-    IMAGE_NOT_FOUND(404,"이미지가 존재하지 않습니다");
+    IMAGE_NOT_FOUND(404,"이미지가 존재하지 않습니다"),
+    IMAGE_SAVE_FAILED(403, "이미지를 삭제하지 못했습니다.");
 
     @Getter
     private int status;
