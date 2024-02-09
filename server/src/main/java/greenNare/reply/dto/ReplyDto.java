@@ -33,14 +33,14 @@ public class ReplyDto {
             this.point = point;
         }
 
-        public static Response from(Reply reply, Member member) {
+        public static Response from(Reply reply) {
             return Response.builder()
                     .replyId(reply.getReplyId())
                     .memberId(reply.getMember().getMemberId())
                     .challengeId(reply.getChallenge().getChallengeId())
                     .content(reply.getContent())
-                    .name(member.getName())
-                    .point(member.getPoint())
+                    .name(reply.getMember().getName())
+                    .point(reply.getMember().getPoint())
                     .createdAt(reply.getCreatedAt())
                     .updatedAt(reply.getUpdatedAt())
                     .build();
