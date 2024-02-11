@@ -1,8 +1,8 @@
 package greenNare.place.entity;
 
 import greenNare.audit.Auditable;
+import greenNare.member.entity.Member;
 import lombok.*;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
 
@@ -18,10 +18,11 @@ public class Place extends Auditable {
     @Column(nullable = false)
     private int placeId;
 
-    @Column(nullable = false)
-    private int memberId;
+    @ManyToOne
+    @JoinColumn(name = "memberId")
+    Member member;
 
-    @Column//(nullable = false)
+    @Column
     private String placeName;
 
     @Column(nullable = false)
