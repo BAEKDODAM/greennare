@@ -1,5 +1,5 @@
 package greenNare.product.repository;
-
+/*
 import greenNare.product.entity.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,3 +19,4 @@ public interface ImageRepository extends JpaRepository<Image, Integer> {
 
     List<Image> findByReviewReviewId(int reviewId);
 }
+*/

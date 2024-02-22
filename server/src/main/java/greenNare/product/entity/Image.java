@@ -1,5 +1,5 @@
 package greenNare.product.entity;
-
+/*
 import greenNare.audit.Auditable;
 import lombok.*;
 
@@ -16,7 +16,7 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int imageId;
 
-    @Column(nullable = false/*, unique = true*/)
+    @Column(nullable = false)
     String imageUri;
 
     @ManyToOne
@@ -37,3 +37,4 @@ public class Image {
     }
 
 }
+*/

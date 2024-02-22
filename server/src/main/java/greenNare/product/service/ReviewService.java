@@ -5,12 +5,13 @@ import com.google.cloud.storage.Storage;
 import greenNare.auth.jwt.JwtTokenizer;
 import greenNare.exception.BusinessLogicException;
 import greenNare.exception.ExceptionCode;
+import greenNare.image.entity.Image;
+import greenNare.image.repository.ImageRepository;
+import greenNare.image.service.ImageService;
 import greenNare.member.repository.MemberRepository;
 import greenNare.member.service.MemberService;
 import greenNare.product.dto.GetReviewWithImageDto;
-import greenNare.product.entity.Image;
 import greenNare.product.entity.Review;
-import greenNare.product.repository.ImageRepository;
 import greenNare.product.repository.ReviewRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +35,7 @@ import java.util.stream.Collectors;
 public class ReviewService {
     private ReviewRepository reviewRepository;
 
-    private ImageRepository imageRepository;    //imageService를 만들어야할지
+    private ImageService imageService;
 
     private ProductService productService;
 
@@ -55,14 +56,12 @@ public class ReviewService {
     public ReviewService(ReviewRepository reviewRepository,
                          ProductService productService,
                          MemberRepository memberRepository,
-                         ImageRepository imageRepository,
                          MemberService memberService,
                          Storage storage) {
 
         this.reviewRepository = reviewRepository;
         this.productService = productService;
         this.memberRepository = memberRepository;
-        this.imageRepository = imageRepository;
         this.memberService = memberService;
         this.storage = storage;
     }
@@ -84,9 +83,10 @@ public class ReviewService {
     public List<GetReviewWithImageDto> getReviewImage(Page<Review> reviews) {
         List<GetReviewWithImageDto> getReviewWithImageDtos = reviews.getContent().stream()
                 .map(review -> {
-                    List<Image> images = imageRepository.findImagesUriByReviewReviewId(review.getReviewId());
+                    List<Image> images = imageService.findImageByReviewId(review.getReviewId());
+                    //List<Image> images = imageRepository.findImagesUriByReviewReviewId(review.getReviewId());
                     List<String> imageLinks = images.stream()
-                            .map(image -> image.getImageUri())
+                            .map(image -> image.getImageUrl())
                             .collect(Collectors.toList());
 
                     GetReviewWithImageDto resultDto = new GetReviewWithImageDto(
@@ -144,10 +144,11 @@ public class ReviewService {
         System.out.println("updateReview " + review);
 
         for(int i = 0; i<deleteImages.size(); i++) {
-            if(imageRepository.findImageUriByImageUri(deleteImages.get(i)).isPresent()){
+            imageService.deleteImage(deleteImages.get(i));
+            /*if(imageRepository.findImageUriByImageUri(deleteImages.get(i)).isPresent()){
                 Image ig = imageRepository.findImageUriByImageUri(deleteImages.get(i)).orElseThrow();
                 imageRepository.delete(ig);
-            }
+            }*/
         }
 
     }
@@ -164,6 +165,8 @@ public class ReviewService {
         System.out.println("createReview " + review);
         if(images.size() !=0){
             log.info("images_exist");
+            imageService.saveReviewImages(review, images);
+            /*
             List<Image> saveImages = images.stream().map(
                     image -> {
                         try {
@@ -172,7 +175,7 @@ public class ReviewService {
                             throw new RuntimeException(e);
                         }
                     }
-            ).collect(Collectors.toList());
+            ).collect(Collectors.toList());*/
         }
 
         //updatePoint(response-변경된 포인트 전송)
@@ -191,10 +194,12 @@ public class ReviewService {
         reviewRepository.save(findReview);
 
         for(int i = 0; i<deleteImages.size(); i++) {
+            imageService.deleteImage(deleteImages.get(i));
+            /*
             if(imageRepository.findImageUriByImageUri(deleteImages.get(i)).isPresent()){
                 Image ig = imageRepository.findImageUriByImageUri(deleteImages.get(i)).orElseThrow();
                 imageRepository.delete(ig);
-            }
+            }*/
         }
 
 //        if(images != null && !images.isEmpty()){
@@ -208,15 +213,17 @@ public class ReviewService {
 //                    }
 //            ).collect(Collectors.toList());
 //        }
-        List<Image> saveImages = images.stream().map(
+        List<String> saveImages = imageService.saveReviewImages(review, images);
+        /*List<Image> saveImages = images.stream().map(
                 image -> {
                     try {
+
                         return imageRepository.save(new Image(createImageName(image), findReview(memberId,productId)));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
-        ).collect(Collectors.toList());
+        ).collect(Collectors.toList());*/
 
         System.out.println("updateReview " + review);
 
@@ -249,11 +256,7 @@ public class ReviewService {
 
     public void deleteReview(int memberId, int productId) {
         Review findReview = findReview(memberId, productId);
-
-        List<Image> deleteImages = imageRepository.findByReviewReviewId(findReview.getReviewId());
-        for(int i=0; i< deleteImages.size(); i++){
-            imageRepository.delete(deleteImages.get(i));
-        }
+        imageService.deleteImagesByReviewId(findReview.getReviewId());
 
         reviewRepository.delete(findReview);
     }

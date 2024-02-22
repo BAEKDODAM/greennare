@@ -1,6 +1,7 @@
 package greenNare.product.entity;
 
 import greenNare.audit.Auditable;
+import greenNare.image.entity.Image;
 import greenNare.member.entity.Member;
 import lombok.*;
 

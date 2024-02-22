@@ -116,4 +116,11 @@ public class ImageService {
             }
         }
     }
+
+    public List<Image> findImageByReviewId(int reviewId){
+        return imageRepository.findByReviewReviewId(reviewId);
+    }
+    public List<Image> findImageByProductId(int productId){
+        return imageRepository.findByProductProductId(productId);
+    }
 }

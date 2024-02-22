@@ -4,11 +4,11 @@ import greenNare.cart.entity.Cart;
 import greenNare.cart.repository.CartRepository;
 import greenNare.exception.BusinessLogicException;
 import greenNare.exception.ExceptionCode;
+import greenNare.image.entity.Image;
+import greenNare.image.service.ImageService;
 import greenNare.member.service.MemberService;
 import greenNare.product.dto.GetProductWithImageDto;
-import greenNare.product.entity.Image;
 import greenNare.product.entity.Product;
-import greenNare.product.repository.ImageRepository;
 import greenNare.product.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,21 +23,16 @@ public class CartService {
     private CartRepository cartRepository;
     private ProductService productService;
     private MemberService memberService;
+    private ImageService imageService;
 
-    private ImageRepository imageRepository;
-
-    public CartService(CartRepository cartRepository,
-                       ProductService productService,
-                       MemberService memberService,
-                       ImageRepository imageRepository) {
+    public CartService(CartRepository cartRepository, ProductService productService, MemberService memberService, ImageService imageService) {
         this.cartRepository = cartRepository;
         this.productService = productService;
         this.memberService = memberService;
-        this.imageRepository = imageRepository;
+        this.imageService = imageService;
     }
 
-
-//    public void changeLike(/*String token*, */int productId) {
+    //    public void changeLike(/*String token*, */int productId) {
 //        if(findExistLike(productId) == false) createLike(productId);
 //        else deleteLike(productId);
 //    }
@@ -94,9 +89,9 @@ public class CartService {
 
         List<GetProductWithImageDto> getProductWithImageDtos = myCartProducts.stream()
                 .map(product -> {
-                    List<Image> images = imageRepository.findImagesUriByProductProductId(product.getProductId());
+                    List<Image> images = imageService.findImageByProductId(product.getProductId());//imageRepository.findImagesUriByProductProductId(product.getProductId());
                     List<String> imageLinks = images.stream()
-                            .map(image -> image.getImageUri())
+                            .map(image -> image.getImageUrl())
                             .collect(Collectors.toList());
 //                    Image image = imageRepository.findImageUriByProductProductId(product.getProductId());
 //                    String imageLink = image.getImageUri();
