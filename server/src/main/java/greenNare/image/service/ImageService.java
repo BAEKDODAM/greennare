@@ -1,5 +1,6 @@
 package greenNare.image.service;
 
+import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -9,6 +10,7 @@ import greenNare.exception.BusinessLogicException;
 import greenNare.exception.ExceptionCode;
 import greenNare.image.entity.Image;
 import greenNare.image.repository.ImageRepository;
+import greenNare.product.entity.Review;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,57 +39,81 @@ public class ImageService {
         this.imageRepository = imageRepository;
     }
 
-    public Image findImagesByChallengeId(long challengeId) {
-        return imageRepository.findByChallengeChallengeId(challengeId);
+    public String saveChallengeImage(Challenge challenge, MultipartFile image){
+        String imageName = createImageName(image.getOriginalFilename());
+        String imageSavePath = saveImageToS3(image, imageName);
+
+        Image saveImage = new Image(imageSavePath, imageName, challenge);
+        imageRepository.save(saveImage);
+        return imageSavePath;
     }
-
-    public List<String> saveChallengeImages(Challenge challenge, List<MultipartFile> images) {
-        return images.stream()
-                .map(img -> {
-                    UUID uuid = UUID.randomUUID();
-                    String type = img.getContentType();
-                    String name = uuid.toString() + SEPERATOR + img.getOriginalFilename();
-
-
-                    ObjectMetadata metadata = new ObjectMetadata();
-                    metadata.setContentType(type);
-                    try {
-                        PutObjectResult putObjectResult = amazonS3.putObject(new PutObjectRequest(
-                                bucketName, name, img.getInputStream(), metadata
-                        ).withCannedAcl(CannedAccessControlList.PublicRead));
-
-                    } catch (IOException e) {
-                        throw new BusinessLogicException(ExceptionCode.IMAGE_SAVE_FAILED); //커스텀 예외 던짐.
-                    }
-
-                    String imageSavePath = amazonS3.getUrl(bucketName, name).toString(); //데이터베이스에 저장할 이미지가 저장된 주소
-
-                    Image image = new Image();
-                    image.setImageUrl(imageSavePath);
-                    image.setImageName(name);
-                    image.setChallenge(challenge);
+    public List<String> saveReviewImages(Review review, List<MultipartFile> images){
+        return images.stream().map(img -> {
+                    String name = createImageName(img.getOriginalFilename());
+                    String imageSavePath = saveImageToS3(img, name);
+                    Image image = new Image(imageSavePath, name, review);
 
                     imageRepository.save(image);
                     return imageSavePath;
                 })
                 .collect(Collectors.toList());
     }
+    public String createImageName(String imageName){
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString() + SEPERATOR + imageName;
+    }
+    public String saveImageToS3(MultipartFile image, String name){
+        String type = image.getContentType();
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType(type);
+        try {
+            PutObjectResult putObjectResult = amazonS3.putObject(new PutObjectRequest(
+                    bucketName, name, image.getInputStream(), metadata
+            ).withCannedAcl(CannedAccessControlList.PublicRead));
 
-    public void deleteImageByPostId(long challengeId){
-        Image images = imageRepository.findByChallengeChallengeId(challengeId);
-        /*
+        } catch (IOException e) {
+            throw new BusinessLogicException(ExceptionCode.IMAGE_SAVE_FAILED); //커스텀 예외 던짐.
+        }
+
+        String imageSavePath = amazonS3.getUrl(bucketName, name).toString(); //데이터베이스에 저장할 이미지가 저장된 주소
+        return imageSavePath;
+    }
+
+    public void deleteImageByChallengId(int challengeId){
+        Image findImage = imageRepository.findByChallengeChallengeId(challengeId);
+        String fileName = findImage.getImageName();
+        deleteImage(fileName);
+        imageRepository.deleteByChallengeChallengeId(challengeId);
+    }
+
+    public void deleteImagesByProductId(int productId){
+        List<Image> images = imageRepository.findByProductProductId(productId);
+
         images.stream().forEach(image -> {
             String fileName = image.getImageName();
+            deleteImage(fileName);
+        });
+        imageRepository.deleteByProductProductId(productId);
+    }
+
+    public void deleteImagesByReviewId(int reviewId){
+        List<Image> images = imageRepository.findByReviewReviewId(reviewId);
+        images.stream().forEach(image -> {
+            String fileName = image.getImageName();
+            deleteImage(fileName);
+        });
+        imageRepository.deleteByReviewReviewId(reviewId);
+    }
+
+    public void deleteImage(String fileName){
+        try {
+            amazonS3.deleteObject(bucketName, fileName);
+        } catch (SdkClientException e) {
             try {
-                amazonS3.deleteObject(bucketName, fileName);
-            } catch (SdkClientException e) {
-                try {
-                    throw new IOException("Error deleting file from S3", e);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                throw new IOException("Error deleting file from S3", e);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
-        });*/
-        imageRepository.deleteByChallengeChallengeId(challengeId);
+        }
     }
 }

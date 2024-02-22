@@ -27,4 +27,20 @@ public class Image {
     @ManyToOne
     @JoinColumn(name = "challengeId")
     Challenge challenge;
+
+    public Image(String imageUrl, String imageName, Challenge challenge) {
+        this.imageUrl = imageUrl;
+        this.imageName = imageName;
+        this.challenge = challenge;
+    }
+    public Image(String imageUrl, String imageName, Review review) {
+        this.imageUrl = imageUrl;
+        this.imageName = imageName;
+        this.review = review;
+    }
+    public Image(String imageUrl, String imageName, Product product) {
+        this.imageUrl = imageUrl;
+        this.imageName = imageName;
+        this.product = product;
+    }
 }
