@@ -1,4 +1,7 @@
+<img src="img/greennare.png"/>
+
 # 🌱 그린나래 🌱 (ㅇㅋ팀)
+그린나래는 심각해지는 환경 문제에 대한 사람들의 관심을 높이고 보다 쉽게 친환경적인 제품을 찾아볼 수 있도록 돕는 서비스입니다. 
 
 🔖 [배포 URL](https://codestates-seb.github.io/seb44_main_026/) `2023.06.28~2023.07.27`
 
@@ -8,7 +11,6 @@
 ## 🧑‍🤝‍🧑 Team members
 | 김수성<br>(FE Leader) | 백승효<br>(FE) | 김영윤<br>(FE) | 백도담<br>(BE Leader) | 최서우<br>(BE) | 김리나<br>(BE) |
 |:--------:| :--------: | :--------: | :--------: | :--------: |  :--------: |
-| <img src="img/green.png" alt="김수성" width="80" height="80">| <img src="img/green.png" alt="백승효" width="80" height="80"> |<img src="img/green.png" alt="김영윤" width="80" height="80"> | <img src="img/green.png" alt="백도담" width="80" height="80"> | <img src="img/green.png" alt="최서우" width="80" height="80"> |<img src="img/green.png" alt="김리나" width="80" height="80"> |
 |[@KimSuSung0326](https://github.com/KimSuSung0326) | [@hyo-4](https://github.com/hyo-4) | [@youngyun213](https://github.com/youngyun213) |  [@BAEKDODAM](https://github.com/BAEKDODAM)  |[@wooseoboy](https://github.com/wooseoboy)  | [@LinaKK](https://github.com/LinaKK) |
 
 
@@ -77,62 +79,260 @@
 
 ## 🔖 Project Docs
 ### 📍사용자 요구사항 정의서
-    [](%E1%84%80%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%82%E1%85%A1%E1%84%85%E1%85%A2%204d29a518fe584445b253f4b63f8f04b1/%EC%A0%9C%EB%AA%A9%20%EC%97%86%EC%9D%8C%20634b0da392874d0880917369494d4ba3.csv)
+[사용자 요구사항 정의서](img/%EC%A0%9C%EB%AA%A9%20%EC%97%86%EC%9D%8C%20634b0da392874d0880917369494d4ba3.csv)
+
+</br>
 
 ### 📍화면 정의서
-    
-<img src="img/Untitled%201.png" >
-<img src ="img/Untitled%202.png" >
-<img = "img/Untitled%203.png">
-<img src = "img/Untitled%204.png">
-<img src="img/Untitled%205.png">
-<img src="img/Untitled%206.png">
-<img src="img/Untitled%207.png">
+<details>
+    <summary>화면정의서</summary>
+    <br>
+    <img src="img/Untitled%201.png" >
+    <img src ="img/Untitled%202.png" >
+    <img = "img/Untitled%203.png">
+    <img src = "img/Untitled%204.png">
+    <img src="img/Untitled%205.png">
+    <img src="img/Untitled%206.png">
+    <img src="img/Untitled%207.png">
+</details>
+
+</br>
 
 ### 📍개발자 테스트 체크리스트
-    
-| no | 카테고리 | 설명 | 결과 | 비고 |
-| --- | --- | --- | --- | --- |
-| 1 | 회원가입 | 회원가입을 할 수 있다. | O |  |
-| 2 | 회원가입 | 회원가입 시에 올바른 데이터를 입력받았는가 | O |  |
-| 3 | 로그인 | 등록된 회원 정보와 일치하는 정보로 로그인에 성공한다 | O |  |
-| 4 | 회원 정보 | 로그인 된 계정의 회원 정보를 조회할 수 있다 | O |  |
-| 5 | 회원 정보 | 로그인 된 계정의 회원 정보를 수정할 수 있다 | O |  |
-| 6 | shop | 판매 물품 리스트를 조회할 수 있다 | O |  |
-| 7 | shop | 판매 물품 리스트에서 물품을 선택하면 해당 물품의 상세페이지를 조회할 수 있다 | O |  |
-| 8 | shop | 물품 상세 페이지에서 리뷰를 확인할 수 있다 | O |  |
-| 9 | shop | 물품 상세 페이지에서 상품을 관심 상품에 등록할 수 있다(좋아요 기능) | O |  |
-| 10 | shop | 물품구매를 선택하면 실제 물품 판매 사이트로 접속할 수 있다 | X |  |
-| 11 | shop | 물품 구매 후 리뷰를 작성할 수 있다 | O |  |
-| 12 | shop | 작성한 리뷰를 수정할 수 있다 | O |  |
-| 13 | shop | 관심등록을 취소할수있다 | O |  |
-| 14 | shop | 리뷰를 작성하면 포인트를 얻을 수 있다 | O |  |
-| 15 | shop | 카테고리에 따라 물품을 조회할 수 있다 | O |  |
-| 16 | shop | 광고 배너와 물품 배너를 조회할 수 있다. | O |  |
-| 17 | shop | 배너의 물품을 선택하면 해당 물품의 상세페이지를 조회할수있다 | X |  |
-| 18 | 게시판 | 챌린지 리스트를 조회할 수 있다 | O |  |
-| 19 | 게시판 | 챌린지 상세 페이지를 조회할 수 있다 | O |  |
-| 20 | 게시판 | 챌린지를 등록할 수 있다(등록 시 포인트 차감) | O |  |
-| 21 | 게시판 | 챌린지를 수정할 수  있다 | O |  |
-| 22 | 게시판 | 챌린지를 삭제할 수 있다 | O |  |
-| 23 | 게시판 | 챌린지에 댓글을 등록할 수 있다 | O |  |
-| 24 | 게시판 | 챌린지에 댓글을 등록하면(챌린지 참여) 포인트를 얻을 수 있다 | O |  |
-| 25 | 게시판 | 챌린지 댓글을 수정할 수 있다 | O |  |
-| 26 | 지도 | 지도에서 매장 위치를 확인할 수 있다 | O |  |
-| 27 | 지도 | 지도에 매장을 추가할 수 있다 | O |  |
-| 28 | 지도 | 지도에 추가한 매장을 삭제할 수 있다 | O |  |
-
+<details>
+    <summary>개발자 테스트 체크리스트</summary>
+    <div markdown="1">
+    <table>
+    <thead>
+    <tr>
+      <th>no</th>
+      <th>카테고리</th>
+      <th>설명</th>
+      <th>결과</th>
+      <th>비고</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>회원가입</td>
+      <td>회원가입을 할 수 있다.</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>회원가입</td>
+      <td>회원가입 시에 올바른 데이터를 입력받았는가</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>로그인</td>
+      <td>등록된 회원 정보와 일치하는 정보로 로그인에 성공한다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>회원 정보</td>
+      <td>로그인 된 계정의 회원 정보를 조회할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>회원 정보</td>
+      <td>로그인 된 계정의 회원 정보를 수정할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>shop</td>
+      <td>판매 물품 리스트를 조회할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>shop</td>
+      <td>판매 물품 리스트에서 물품을 선택하면 해당 물품의 상세페이지를 조회할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>shop</td>
+      <td>물품 상세 페이지에서 리뷰를 확인할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>shop</td>
+      <td>물품 상세 페이지에서 상품을 관심 상품에 등록할 수 있다(좋아요 기능)</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>shop</td>
+      <td>물품구매를 선택하면 실제 물품 판매 사이트로 접속할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>shop</td>
+      <td>물품 구매 후 리뷰를 작성할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>shop</td>
+      <td>작성한 리뷰를 수정할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>shop</td>
+      <td>관심등록을 취소할수있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>shop</td>
+      <td>리뷰를 작성하면 포인트를 얻을 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>shop</td>
+      <td>카테고리에 따라 물품을 조회할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>shop</td>
+      <td>광고 배너와 물품 배너를 조회할 수 있다.</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>shop</td>
+      <td>배너의 물품을 선택하면 해당 물품의 상세페이지를 조회할수있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>게시판</td>
+      <td>챌린지 리스트를 조회할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>게시판</td>
+      <td>챌린지 상세 페이지를 조회할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>게시판</td>
+      <td>챌린지를 등록할 수 있다(등록 시 포인트 차감)</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>게시판</td>
+      <td>챌린지를 수정할 수  있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>게시판</td>
+      <td>챌린지를 삭제할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>게시판</td>
+      <td>챌린지에 댓글을 등록할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>게시판</td>
+      <td>챌린지에 댓글을 등록하면(챌린지 참여) 포인트를 얻을 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>게시판</td>
+      <td>챌린지 댓글을 수정할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>지도</td>
+      <td>지도에서 매장 위치를 확인할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>지도</td>
+      <td>지도에 매장을 추가할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>지도</td>
+      <td>지도에 추가한 매장을 삭제할 수 있다</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+</details>
+</br>
 
 ### 📍ERD
-- 테이블 명세서
-[greennare (1)](img/greennare%20(1)%2007440236f2b0433fada35c40253b025e.csv)
-![ERD](img/ok.drawio.png)
+- ERD
+    ![ERD](img/ok.drawio.png)
+- [테이블 명세서](img/greennare%20(1)%2007440236f2b0433fada35c40253b025e.csv)
+
+</br>
 
 ### 📍API 명세서
 [API 명세서](https://greennare-cloud-run-hi2lhamh6q-du.a.run.app/swagger-ui/index.html#/)
 
+</br>
+
 ### 배포
 <img src="img/%25EC%25A0%259C%25EB%25AA%25A9_%25EC%2597%2586%25EB%258A%2594_%25EB%258B%25A4%25EC%259D%25B4%25EC%2596%25B4%25EA%25B7%25B8%25EB%259E%25A8.drawio.png">
 
+</br>
+
 ###  📺 발표 영상
 [youtube](https://www.youtube.com/watch?v=4bbhDQS89nQ)
+
+</br>
