@@ -1,19 +1,13 @@
-/*
+
 package greenNare.challenge;
 
 
 import greenNare.auth.jwt.JwtTokenizer;
 import greenNare.auth.utils.CustomAuthorityUtils;
-import greenNare.challenge.entity.Challenge;
 import greenNare.challenge.repository.ChallengeRepository;
 import greenNare.config.SecurityConfiguration;
 import greenNare.member.entity.Member;
 import greenNare.member.repository.MemberRepository;
-import greenNare.product.entity.Product;
-import greenNare.product.entity.Review;
-import greenNare.product.repository.ProductRepository;
-import greenNare.product.repository.ReviewRepository;
-import greenNare.reply.entity.Reply;
 import greenNare.reply.repository.ReplyRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -47,4 +41,4 @@ public class ChallengeDataLoder implements CommandLineRunner {
     }
 }
 
- */
+

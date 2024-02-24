@@ -1,19 +1,15 @@
-/*package greenNare.product;
+package greenNare.product;
 
-import greenNare.member.entity.Member;
+import greenNare.image.repository.ImageRepository;
 import greenNare.member.repository.MemberRepository;
 
-import greenNare.product.entity.Image;
 import greenNare.product.entity.Product;
-import greenNare.product.entity.Review;
-import greenNare.product.repository.ImageRepository;
 import greenNare.product.repository.ProductRepository;
 import greenNare.product.repository.ReviewRepository;
 import greenNare.product.service.ProductService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 
 @Component
 public class DataLoder implements CommandLineRunner {
@@ -133,4 +129,3 @@ public class DataLoder implements CommandLineRunner {
 
 }
 
- */
