@@ -1,8 +1,5 @@
 package greenNare.product.service;
 
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
-import greenNare.auth.jwt.JwtTokenizer;
 import greenNare.exception.BusinessLogicException;
 import greenNare.exception.ExceptionCode;
 import greenNare.image.entity.Image;
@@ -47,23 +44,19 @@ public class ReviewService {
 
     public static final String SEPERATOR  = "_";
 
-    private final Storage storage;
-
-    @Value("${spring.cloud.gcp.storage.bucket}")
-    private String bucketName;
+    //@Value("${spring.cloud.gcp.storage.bucket}")
+    //private String bucketName;
 
 
     public ReviewService(ReviewRepository reviewRepository,
                          ProductService productService,
                          MemberRepository memberRepository,
-                         MemberService memberService,
-                         Storage storage) {
+                         MemberService memberServicee) {
 
         this.reviewRepository = reviewRepository;
         this.productService = productService;
         this.memberRepository = memberRepository;
         this.memberService = memberService;
-        this.storage = storage;
     }
 
 
@@ -231,7 +224,7 @@ public class ReviewService {
 
 
 
-
+/*
     public String createImageName(MultipartFile image) throws IOException{
         UUID uuid = UUID.randomUUID();
         String imageName = uuid + SEPERATOR + image.getOriginalFilename();
@@ -252,6 +245,8 @@ public class ReviewService {
         return bucketName+"/"+imageName;
 
     }
+
+ */
 
 
     public void deleteReview(int memberId, int productId) {

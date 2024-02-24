@@ -1,7 +1,6 @@
 package greenNare.challenge.dto;
 
 import greenNare.challenge.entity.Challenge;
-import greenNare.member.entity.Member;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -46,7 +45,7 @@ public class ChallengeDto {
         //private String createdAt;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
-        private String image;
+        private String imageUrl;
 
         private String name;
         private int point;
@@ -60,17 +59,17 @@ public class ChallengeDto {
         }
         public void setCountReply(int countReply) {this.countReply = countReply;}
 
-        public static Response from(Challenge challenge) {
+        public static Response from(Challenge challenge, String imageSaveUrl) {
             return Response.builder()
                     .challengeId(challenge.getChallengeId())
                     .memberId(challenge.getMember().getMemberId())
                     .title(challenge.getTitle())
                     .content(challenge.getContent())
-                    .image(challenge.getImageUrl())
                     .createdAt(challenge.getCreatedAt())
                     .updatedAt(challenge.getUpdatedAt())
                     .name(challenge.getMember().getName())
                     .point(challenge.getMember().getPoint())
+                    .imageUrl(imageSaveUrl)
                     .build();
         }
     }

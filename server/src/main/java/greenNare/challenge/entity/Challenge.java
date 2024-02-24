@@ -1,10 +1,10 @@
 package greenNare.challenge.entity;
 
 import greenNare.audit.Auditable;
+import greenNare.image.entity.Image;
 import greenNare.member.entity.Member;
 import greenNare.reply.entity.Reply;
 import lombok.*;
-import org.w3c.dom.stylesheets.LinkStyle;
 import java.util.List;
 import javax.persistence.*;
 
@@ -31,14 +31,16 @@ public class Challenge extends Auditable {
 
     @Column(nullable = false)
     private String content;
-
+/*
     @Column
     private String imageUrl;
 
     private String imageName;
-
+*/
     @OneToMany(mappedBy = "challenge")
     private List<Reply> reply;
+    @OneToMany(mappedBy = "challenge")
+    private List<Image> images;
 
     public Challenge(String title, String content) {
         this.title = title;

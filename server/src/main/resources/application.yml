@@ -1,54 +1,40 @@
 externalImagePath: home/ssm-user/seb44_main_026/images/
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIA3MJJGMPCERYKC2XZ
+      secret-key: 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
+    s3:
+      bucketName: tourmatebucket
+    region:
+      static: ap-northeast-2 # 리전 정보
+    stack:
+      auto: false
 spring:
-  profiles:
-    active: gcp,mysql
-  #mvc:
-  #  static-path-pattern: /images/**
-  #resources:
-  #  static-locations: file:${externalImagePath}
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: username
+    password: password
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
   jpa:
-    defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
-
-    open-in-view: false
-
+    show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
         format_sql: true
-        show_sql: true
-  cloud:
-    gcp:
-      storage:
-        credentials:
-          location: classpath:greennare-9e6b24e727ac.json
-        project-id: greennare
-        bucket: greennare-bucket-1
-      sql:
-      #  instance-conncetion-name: greennare:asia-northeast3:greennare-db
-        database-name: greennare
-        instance-connection-name: greennare:asia-northeast3:greennare-db
-
-  redis:
-    cache:
-      host: localhost
-      port: 6379
-
-  datasource:
-    url: jdbc:mysql://google/greennare?cloudSqlInstance=greennare:asia-northeast3:greennare-db&socketFactory=com.google.cloud.sql.mysql.SocketFactory
-    #url: jdbc:mysql://34.64.148.174:3306/greennare?serverTimezone=Asia/Seoul
-    username: cloudrun
-    password: cloudrun
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    initialization-mode: always
-
+        highlight_sql: true
+        color-codes: true
+        use_sql_comments: true
+    defer-datasource-initialization: true
   sql:
     init:
-    #schema-locations: classpath*:db/h2/schema.sql
-    #data-locations: classpath*:db/h2/data.sql
-  #  application:
-  #    name: monitoring
   servlet:
     multipart:
       max-file-size: 10MB
@@ -71,18 +57,3 @@ mail:
     admin: admin@gmail.com
 server:
   port: 8080
-#management:
-#  endpoint:
-#    metrics:
-#      enabled: true
-#    prometheus:
-#      enabled: true
-
-# endpoints:
-#    web:
-#      exposure:
-#        include: health, info, metrics, prometheus
-
-# metrics:
-#    tags:
-#      application: ${spring.application.name}
