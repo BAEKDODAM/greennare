@@ -74,7 +74,7 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000")); // 클라이언트 애플리케이션이 호스팅되는 도메인
+        configuration.setAllowedOrigins(Arrays.asList("https://codestates-seb.github.io/")); // 클라이언트 애플리케이션이 호스팅되는 도메인
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "PUT", "DELETE", "HEAD", "OPTIONS")); // 지원하는 HTTP 메서드
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Refresh")); // 노출할 응답 헤더 (필요한 경우에만 노출)
         configuration.setAllowCredentials(true); // 인증 정보를 포함하지 않도록 설정 (보안상의 이유로 기본적으로는 false)
