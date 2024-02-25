@@ -30,7 +30,6 @@ public class ChallengeDto {
         private String content;
     }
 
-    //@NoArgsConstructor
     @AllArgsConstructor
     @Getter
     @Builder
@@ -42,7 +41,6 @@ public class ChallengeDto {
         private String title;
         @NotBlank
         private String content;
-        //private String createdAt;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
         private String imageUrl;

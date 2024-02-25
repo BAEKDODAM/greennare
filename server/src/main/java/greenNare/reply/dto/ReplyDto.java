@@ -1,13 +1,11 @@
 package greenNare.reply.dto;
 
-import greenNare.member.entity.Member;
 import greenNare.reply.entity.Reply;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
-//@AllArgsConstructor
 @Getter
 @Builder
 public class ReplyDto {

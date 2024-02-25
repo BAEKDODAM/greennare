@@ -11,6 +11,7 @@ import greenNare.exception.ExceptionCode;
 import greenNare.image.entity.Image;
 import greenNare.image.repository.ImageRepository;
 import greenNare.product.entity.Review;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,11 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Transactional
 @Service
+@Slf4j
 public class ImageService {
     @Value("${cloud.aws.s3.bucketName}")
     private String bucketName;
@@ -71,18 +74,18 @@ public class ImageService {
             ).withCannedAcl(CannedAccessControlList.PublicRead));
 
         } catch (IOException e) {
-            throw new BusinessLogicException(ExceptionCode.IMAGE_SAVE_FAILED); //커스텀 예외 던짐.
+            throw new BusinessLogicException(ExceptionCode.IMAGE_SAVE_FAILED);
         }
 
-        String imageSavePath = amazonS3.getUrl(bucketName, name).toString(); //데이터베이스에 저장할 이미지가 저장된 주소
+        String imageSavePath = amazonS3.getUrl(bucketName, name).toString();
         return imageSavePath;
     }
 
     public void deleteImageByChallengId(int challengeId){
-        Image findImage = imageRepository.findByChallengeChallengeId(challengeId);
-        String fileName = findImage.getImageName();
-        deleteImage(fileName);
-        imageRepository.deleteByChallengeChallengeId(challengeId);
+        imageRepository.findByChallengeChallengeId(challengeId).ifPresent(image -> {
+            deleteImage(image.getImageName());
+            imageRepository.deleteByChallengeChallengeId(challengeId);
+        });
     }
 
     public void deleteImagesByProductId(int productId){
@@ -122,7 +125,8 @@ public class ImageService {
     public List<Image> findImageByProductId(int productId){
         return imageRepository.findByProductProductId(productId);
     }
-    public Image findImageByChallengeId(int challengeId){
+    public Optional<Image> findImageByChallengeId(int challengeId){
+        log.info("findImageByChallengeId");
         return imageRepository.findByChallengeChallengeId(challengeId);
     }
 

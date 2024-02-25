@@ -2,13 +2,10 @@ package greenNare.reply.controller;
 
 import greenNare.Response.MultiResponseDto;
 import greenNare.Response.SingleResponseDto;
-import greenNare.challenge.mapper.ChallengeMapper;
-import greenNare.member.entity.Member;
 import greenNare.reply.dto.ReplyDto;
 import greenNare.reply.entity.Reply;
 import greenNare.reply.mapper.ReplyMapper;
 import greenNare.reply.service.ReplyService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,12 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -37,11 +31,10 @@ public class ReplyController {
         this.mapper = mapper;
     }
 
-    // 댓글 조회
     @GetMapping("/reply/{challengeId}")
     public ResponseEntity getReply(@PathVariable int challengeId,
                                    Pageable pageablePageSize) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt"); // challengeId를 내림차순으로 정렬하는 Sort 객체 생성
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
         Pageable pageable = PageRequest.of(pageablePageSize.getPageNumber(), pageablePageSize.getPageSize(), sort);
 
 
@@ -51,7 +44,6 @@ public class ReplyController {
         return new ResponseEntity<>(new MultiResponseDto<>(replyList, replyPage), HttpStatus.OK);
     }
 
-    // 댓글 생성
     @PostMapping("/reply/{challengeId}")
     public ResponseEntity createReply(@PathVariable int challengeId,
                                       @RequestHeader(value = "Authorization", required = false) String token,
@@ -61,7 +53,6 @@ public class ReplyController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
-    // 댓글 수정
     @PatchMapping("/reply/{replyId}")
     public ResponseEntity updateReply(@PathVariable int replyId,
                                       @RequestHeader(value = "Authorization", required = false) String token,
@@ -71,7 +62,6 @@ public class ReplyController {
         return ResponseEntity.ok(new SingleResponseDto<>(response));
     }
 
-    // 댓글 삭제
     @DeleteMapping("/reply/{replyId}")
     public ResponseEntity deleteReply(@PathVariable int replyId,
                                       @RequestHeader(value = "Authorization", required = false) String token){

@@ -4,10 +4,12 @@ package greenNare.challenge;
 
 import greenNare.auth.jwt.JwtTokenizer;
 import greenNare.auth.utils.CustomAuthorityUtils;
+import greenNare.challenge.entity.Challenge;
 import greenNare.challenge.repository.ChallengeRepository;
 import greenNare.config.SecurityConfiguration;
 import greenNare.member.entity.Member;
 import greenNare.member.repository.MemberRepository;
+import greenNare.reply.entity.Reply;
 import greenNare.reply.repository.ReplyRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -38,6 +40,13 @@ public class ChallengeDataLoder implements CommandLineRunner {
         Member member = new Member("guest@email.com", "name", password, 10000);
         memberRepository.save(member); // Member 엔티티를 먼저 저장
 
+        Challenge challenge = new Challenge("title", "content", member);
+        challengeRepository.save(challenge);
+
+        Reply reply = new Reply(member, challenge, "댓글");
+        replyRepository.save(reply);
+        Reply reply2 = new Reply(member, challenge, "댓글");
+        replyRepository.save(reply2);
     }
 }
 

@@ -19,24 +19,15 @@ public class Challenge extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private int challengeId;
-
     @ManyToOne
     @JoinColumn(name = "memberId")
     private Member member;
-    //@Column(nullable = false)
-    //private int memberId;
 
     @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
     private String content;
-/*
-    @Column
-    private String imageUrl;
-
-    private String imageName;
-*/
     @OneToMany(mappedBy = "challenge")
     private List<Reply> reply;
     @OneToMany(mappedBy = "challenge")

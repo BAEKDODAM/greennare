@@ -26,10 +26,7 @@ public class Reply extends Auditable {
     @ManyToOne
     @JoinColumn(name = "challengeId")
     private Challenge challenge;
-    //@Column
-    //private int memberId;
-    //@Column
-    //private int challengeId;
+
     @Column(nullable = false)
     private String content;
 

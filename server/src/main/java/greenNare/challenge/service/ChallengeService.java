@@ -84,10 +84,11 @@ public class ChallengeService {
 
     public ChallengeDto.Response getChallenge(int challengeId) {
         Challenge challenge = findVerifideChallenge(challengeId);
-        Image findImage = imageService.findImageByChallengeId(challengeId);
-        ChallengeDto.Response response = ChallengeDto.Response.from(challenge, findImage.getImageUrl());
+        Optional<Image> findImage = imageService.findImageByChallengeId(challengeId);
+        String imageUrl = findImage.map(Image::getImageUrl).orElse(null);
+        ChallengeDto.Response response = ChallengeDto.Response.from(challenge, imageUrl);
         response.setCountReply(getReplyCountForChallenge(challengeId));
-
+        log.info(response.getCountReply() + " ");
         return response;
     }
     public Page<Challenge> getMyChallengePage(Pageable pageable, String token){

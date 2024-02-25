@@ -1,19 +1,16 @@
 package greenNare.place.controller;
 
-import greenNare.Response.MultiResponseDto;
 import greenNare.Response.SingleResponseDto;
 import greenNare.place.dto.PlaceDto;
 import greenNare.place.entity.Place;
 import greenNare.place.mapper.PlaceMapper;
 import greenNare.place.service.PlaceService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -24,7 +21,6 @@ public class PlaceController {
     private final PlaceService placeService;
     private final PlaceMapper mapper;
 
-    //@Autowired
     public PlaceController(PlaceService placeService, PlaceMapper mapper) {
         this.placeService = placeService;
         this.mapper = mapper;
