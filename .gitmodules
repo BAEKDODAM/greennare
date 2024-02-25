@@ -1,0 +1,3 @@
+[submodule "greennare-data"]
+	path = greennare-data
+	url = git@github.com:BAEKDODAM/greennare-data.git
